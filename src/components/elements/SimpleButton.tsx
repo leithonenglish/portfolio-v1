@@ -16,7 +16,7 @@ const SimpleButton: FC<SimpleButtonProps & React.HtmlHTMLAttributes<Element>> =
       if (!!url) {
         const domain = (url) =>
           url.replace("http://", "").replace("https://", "").split("/")[0];
-        return domain(location.href) !== domain(url);
+        return domain(location.pathname) !== domain(url);
       }
       return null;
     };
