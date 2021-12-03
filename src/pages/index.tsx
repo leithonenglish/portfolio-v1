@@ -3,7 +3,7 @@ import { AboutMe, Contact, Experience, Intro } from "../components/home";
 
 const IndexPage = () => {
   return (
-    <div className="max-w-5xl mx-auto h-full">
+    <div className="max-w-5xl mx-auto min-h-full">
       <Intro />
       <AboutMe />
       <Experience />

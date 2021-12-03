@@ -19,10 +19,6 @@
   }
   #___gatsby,
   #gatsby-focus-wrapper {
-    height: 100%;
-  }
-  #wrapper {
-    height: 100%;
-    scroll-behavior: smooth;
+    min-height: 100%;
   }
 }
