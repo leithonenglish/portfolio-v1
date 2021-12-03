@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Link } from "gatsby";
+import { useLocation } from "@reach/router";
 import classNames from "classnames";
 
 type SimpleButtonProps = {
@@ -9,6 +10,7 @@ type SimpleButtonProps = {
 
 const SimpleButton: FC<SimpleButtonProps & React.HtmlHTMLAttributes<Element>> =
   (props) => {
+    const location = useLocation();
     const isExternalURL = () => {
       const url = props.to;
       if (!!url) {
