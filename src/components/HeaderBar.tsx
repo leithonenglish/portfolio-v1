@@ -19,7 +19,7 @@ const HeaderBar = () => {
     { title: "My Work", url: "/#mywork" },
     { title: "Contact", url: "/#contact" },
   ]);
-  const [scrollPos, _setScrollPos] = useState(window.scrollY);
+  const [scrollPos, _setScrollPos] = useState(0);
   const scrollPosRef = useRef(scrollPos);
   const setScrollPos = (pos: number) => {
     scrollPosRef.current = pos;
@@ -27,6 +27,7 @@ const HeaderBar = () => {
   };
   const showShadow = useMemo(() => scrollPosRef.current > 80, [scrollPos]);
   useEffect(() => {
+    setScrollPos(window.scrollX);
     const onScroll = () => {
       const currentScrollPos = window.scrollY;
       if (scrollPosRef.current > currentScrollPos) {
