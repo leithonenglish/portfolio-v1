@@ -30,7 +30,7 @@ const HeaderBar = () => {
     setScrollPos(window.scrollX);
     const onScroll = () => {
       const currentScrollPos = window.scrollY;
-      if (scrollPosRef.current > currentScrollPos) {
+      if (scrollPosRef.current > currentScrollPos || currentScrollPos <= 0) {
         headerElm.current.style.top = "0";
       } else {
         headerElm.current.style.top = `-${
