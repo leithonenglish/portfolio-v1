@@ -56,7 +56,7 @@ const Experience: FC = () => {
     };
   });
   return (
-    <div id="experience" className="py-24">
+    <div id="experience" className="py-24 min-h-[45rem]">
       <SectionHeader>{data.datoCmsExperience.title}</SectionHeader>
       <div className="grid grid-rows-1 grid-cols-[auto,350px] gap-x-10">
         <div className="flex flex-col">

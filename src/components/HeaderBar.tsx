@@ -1,12 +1,12 @@
-import * as React from "react";
+import React, { useState, useContext, useMemo, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import { ThemeContext } from "gatsby-plugin-theme-switcher";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
-
-const { useState, useContext, useMemo, useEffect } = React;
+import { logo as Logo } from "../assets/svg";
 
 const HeaderBar = () => {
+  const headerElm = useRef<HTMLDivElement>(null);
   const { theme, switchTheme } = useContext(ThemeContext);
   const [isDarkMode, setDarkMode] = useState(theme === "dark");
   const themeSelected = useMemo(
@@ -19,6 +19,30 @@ const HeaderBar = () => {
     { title: "My Work", url: "/#mywork" },
     { title: "Contact", url: "/#contact" },
   ]);
+  const [scrollPos, _setScrollPos] = useState(window.scrollY);
+  const scrollPosRef = useRef(scrollPos);
+  const setScrollPos = (pos: number) => {
+    scrollPosRef.current = pos;
+    _setScrollPos(pos);
+  };
+  const showShadow = useMemo(() => scrollPosRef.current > 80, [scrollPos]);
+  useEffect(() => {
+    const onScroll = () => {
+      const currentScrollPos = window.scrollY;
+      if (scrollPosRef.current > currentScrollPos) {
+        headerElm.current.style.top = "0";
+      } else {
+        headerElm.current.style.top = `-${
+          headerElm.current.clientHeight + 30
+        }px`;
+      }
+      setScrollPos(currentScrollPos);
+    };
+    window.addEventListener("scroll", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, []);
   useEffect(() => {
     switchTheme(themeSelected);
   }, [isDarkMode]);
@@ -28,8 +52,16 @@ const HeaderBar = () => {
     setDarkMode(!isDarkMode);
   };
   return (
-    <div className="z-50 fixed top-0 left-0 right-0 flex items-center justify-between h-20 px-10 bg-gray-100 dark:bg-almost-black transition-colors">
-      <div></div>
+    <div
+      ref={headerElm}
+      className={classNames(
+        "z-50 fixed top-0 left-0 right-0 flex items-center justify-between h-20 px-10 bg-gray-100/80 dark:bg-almost-black/80 backdrop-filter backdrop-blur-md transition-position-colors",
+        { "shadow-lg": showShadow }
+      )}
+    >
+      <Link to="/">
+        <Logo className="h-8 text-blue-700 dark:text-blue-400" />
+      </Link>
       <div className="flex items-center">
         {links.map(({ title, url }) => (
           <Link
