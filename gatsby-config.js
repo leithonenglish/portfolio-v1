@@ -12,7 +12,6 @@ module.exports = {
     "gatsby-plugin-react-helmet",
     "gatsby-plugin-sitemap",
     "gatsby-plugin-postcss",
-    "gatsby-plugin-theme-switcher",
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-plugin-smoothscroll",

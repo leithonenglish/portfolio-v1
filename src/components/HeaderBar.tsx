@@ -1,18 +1,19 @@
 import React, { useState, useContext, useMemo, useEffect, useRef } from "react";
 import { Link } from "gatsby";
-import { ThemeContext } from "gatsby-plugin-theme-switcher";
 import { Icon } from "@iconify/react";
 import classNames from "classnames";
+import { ThemeContext } from "../provider/ThemeProvider";
 import { logo as Logo } from "../assets/svg";
+
+const modeSettings = {
+  dark: { icon: "iconoir:light-bulb-off", color: "text-white/80" },
+  light: { icon: "iconoir:light-bulb-on", color: "text-yellow-500" },
+  system: { icon: "iconoir:light-bulb", color: "text-blue-500" },
+};
 
 const HeaderBar = () => {
   const headerElm = useRef<HTMLDivElement>(null);
-  const { theme, switchTheme } = useContext(ThemeContext);
-  const [isDarkMode, setDarkMode] = useState(theme === "dark");
-  const themeSelected = useMemo(
-    () => (isDarkMode ? "dark" : "light"),
-    [isDarkMode]
-  );
+  const { theme, isSystem, setTheme } = useContext(ThemeContext);
   const [links] = useState([
     { title: "About", url: "/#aboutme" },
     { title: "Experience", url: "/#experience" },
@@ -26,6 +27,15 @@ const HeaderBar = () => {
     _setScrollPos(pos);
   };
   const showShadow = useMemo(() => scrollPosRef.current > 80, [scrollPos]);
+  const modeSetting = useMemo(
+    () => (isSystem ? modeSettings["system"] : modeSettings[theme]),
+    [isSystem, theme]
+  );
+  const onModeChange = (event: React.MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    const mode = isSystem ? "light" : theme === "light" ? "dark" : "system";
+    setTheme(mode);
+  };
   useEffect(() => {
     setScrollPos(window.scrollX);
     const onScroll = () => {
@@ -44,14 +54,7 @@ const HeaderBar = () => {
       window.removeEventListener("scroll", onScroll);
     };
   }, []);
-  useEffect(() => {
-    switchTheme(themeSelected);
-  }, [isDarkMode]);
 
-  const toggleDarkMode = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    setDarkMode(!isDarkMode);
-  };
   return (
     <div
       ref={headerElm}
@@ -74,33 +77,14 @@ const HeaderBar = () => {
           </Link>
         ))}
         <button
+          key={theme}
           className={classNames(
-            "relative flex items-center justify-between border rounded-full h-6 w-[50px] ml-5 transition-colors",
-            !isDarkMode
-              ? "border-yellow-500 bg-white"
-              : "border-blue-400 bg-almost-black"
+            "text-2xl transform transition-transform-colors hover:scale-125 active:scale-90",
+            modeSetting.color
           )}
-          onClick={toggleDarkMode}
+          onClick={onModeChange}
         >
-          {!isDarkMode ? (
-            <Icon
-              icon="majesticons:sun"
-              className="text-yellow-500 absolute top-1/2 transform -translate-y-1/2 left-1"
-            />
-          ) : (
-            <Icon
-              icon="majesticons:moon"
-              className="text-blue-400 absolute top-1/2 transform -translate-y-1/2 right-1"
-            />
-          )}
-          <span
-            className={classNames(
-              "absolute top-1/2 transform -translate-y-1/2 w-4 h-4 rounded-full transition-position-colors",
-              !isDarkMode
-                ? "bg-yellow-500 left-[29px]"
-                : "bg-blue-400 left-1 right-auto"
-            )}
-          ></span>
+          <Icon icon={modeSetting.icon} />
         </button>
       </div>
     </div>

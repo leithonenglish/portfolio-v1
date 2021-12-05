@@ -58,12 +58,12 @@ const Experience: FC = () => {
   return (
     <div id="experience" className="py-24 min-h-[45rem]">
       <SectionHeader>{data.datoCmsExperience.title}</SectionHeader>
-      <div className="grid grid-rows-1 grid-cols-[auto,350px] gap-x-10">
-        <div className="flex flex-col">
+      <div className="grid grid-rows-1 grid-cols-1 md:grid-cols-[65%,auto] gap-x-10">
+        <div className="flex flex-col order-2 md:order-1">
           <DetailStructuredText data={data.datoCmsExperience.description} />
           <ExperienceTabList jobs={jobs} />
         </div>
-        <div className="flex items-start">
+        <div className="flex items-start order-1 mx-auto w-52 mb-10 md:w-auto md:order-2 md:mb-0">
           <div className="relative mt-10">
             <svg
               viewBox="0 0 500 500"

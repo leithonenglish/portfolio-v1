@@ -31,8 +31,19 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
     setJobIndex(index);
   };
   const achievementVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
+    hidden: {
+      opacity: 0,
+      transition: {
+        when: "beforeChildren",
+        staggerChildren: 0.3,
+      },
+    },
+    visible: {
+      opacity: 1,
+      transition: {
+        when: "afterChildren",
+      },
+    },
   };
   const selectectJob = useMemo(() => jobs[jobIndex], [jobIndex]);
   const isJobSelected = (index: number) => jobIndex === index;
@@ -45,11 +56,11 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
   }, [jobIndex]);
 
   return (
-    <div className="flex">
-      <div className="flex-shrink-0 flex flex-col">
-        <div className="relative flex flex-col border-l-2 border-l-gray-300 dark:border-l-gray-500">
+    <div className="flex flex-col md:flex-row">
+      <div className="flex-shrink-0 flex flex-row md:flex-col">
+        <div className="relative flex flex-row border-b-2 min-w-full mb-5 overflow-x-scroll md:overflow-auto md:mb-0 md:min-w-0 md:flex-col md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500">
           <div
-            className="absolute w-[2px] left-[-2px] bg-blue-700 dark:bg-[#64c6ff] transition-position duration-300"
+            className="absolute w-[2px] left-[-2px] bg-blue-700 dark:bg-[#64c6ff] transition-position duration-300 hidden md:block"
             style={{
               top: `${verticalTabMarkerPos}px`,
               height: `${verticalTabMarkerHeight}px`,
@@ -59,7 +70,7 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
             <button
               key={id}
               className={classNames(
-                "btn-tab flex justify-start text-[13px] font-ibm-plex-mono px-5 py-3 transition-colors duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-400",
+                "btn-tab flex justify-start text-[13px] font-ibm-plex-mono whitespace-nowrap px-5 py-3 transition-colors duration-300 hover:bg-blue-500/10 hover:text-blue-700 dark:hover:text-blue-400",
                 isJobSelected(index)
                   ? "text-blue-700 dark:text-blue-400"
                   : "text-gray-600 dark:text-gray-400"
@@ -74,9 +85,10 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
       <AnimatePresence exitBeforeEnter>
         <motion.div
           key={selectectJob.id}
-          className="flex-auto flex flex-col pt-2 pl-10"
+          className="flex-auto flex flex-col md:pt-2 md:pl-10"
           animate="show"
           exit="hidden"
+          transition={{ duration: 0.3 }}
           variants={achievementVariants}
         >
           <div className="text-xl font-medium">
