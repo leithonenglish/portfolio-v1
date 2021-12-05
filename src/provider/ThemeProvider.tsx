@@ -9,7 +9,6 @@ const ThemeContextProvider = ({ children }) => {
   const [theme, _setTheme] = useState("dark");
   const [themes, setThemes] = useState<Set<string>>(new Set([theme]));
   const [isSystem, setIsSystem] = useState(false);
-  const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
   const mqThemeListener = (event: MediaQueryListEvent) => {
     const isDark = event.matches;
     setTheme(isDark ? "dark" : "light");
@@ -17,7 +16,9 @@ const ThemeContextProvider = ({ children }) => {
   const setTheme = (theme: string) => {
     let newTheme = theme;
     if (theme === "system") {
-      newTheme = darkThemeMq.matches ? "dark" : "light";
+      newTheme = window.matchMedia("(prefers-color-scheme: dark)").matches
+        ? "dark"
+        : "light";
       setIsSystem(true);
     } else {
       newTheme = theme || "dark";
@@ -30,6 +31,7 @@ const ThemeContextProvider = ({ children }) => {
     setTheme(theme);
   }, []);
   useEffect(() => {
+    const darkThemeMq = window.matchMedia("(prefers-color-scheme: dark)");
     if (theme === "system") {
       darkThemeMq.addEventListener("change", mqThemeListener);
     } else {
