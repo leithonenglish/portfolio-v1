@@ -1,14 +1,17 @@
 import React, { useState, useContext, useMemo, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import { Icon } from "@iconify/react";
+import lightBulbOn from "@iconify/icons-iconoir/light-bulb-on";
+import lightBulbOff from "@iconify/icons-iconoir/light-bulb-off";
+import lightBulb from "@iconify/icons-iconoir/light-bulb";
 import classNames from "classnames";
 import { ThemeContext } from "../provider/ThemeProvider";
 import { logo as Logo } from "../assets/svg";
 
 const modeSettings = {
-  dark: { icon: "iconoir:light-bulb-off", color: "text-white/80" },
-  light: { icon: "iconoir:light-bulb-on", color: "text-yellow-500" },
-  system: { icon: "iconoir:light-bulb", color: "text-blue-500" },
+  dark: { icon: lightBulbOff, color: "text-white/80" },
+  light: { icon: lightBulbOn, color: "text-yellow-500" },
+  system: { icon: lightBulb, color: "text-blue-500" },
 };
 
 const HeaderBar = () => {
