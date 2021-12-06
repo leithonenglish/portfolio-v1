@@ -6,6 +6,7 @@ import classNames from "classnames";
 type SimpleButtonProps = {
   to?: string;
   target?: string;
+  type?: "external-link" | "internal" | "button";
 };
 
 const SimpleButton: FC<SimpleButtonProps & React.HtmlHTMLAttributes<Element>> =
@@ -21,14 +22,14 @@ const SimpleButton: FC<SimpleButtonProps & React.HtmlHTMLAttributes<Element>> =
       return null;
     };
     const type =
-      isExternalURL() === true
+      props.type || isExternalURL() === true
         ? "external-link"
         : isExternalURL() === false
         ? "internal"
         : "button";
     const styles = classNames(
       props.className,
-      "text-blue-700 dark:text-blue-400 font-ibm-plex-mono border border-blue-700 dark:border-blue-400 py-4 px-8 rounded transition-colors hover:!bg-blue-700 hover:!border-blue-700 hover:!text-white"
+      "text-blue-700 dark:text-blue-400 font-ibm-plex-mono border border-blue-700 dark:border-blue-400 py-3 px-8 rounded transition-colors hover:!bg-blue-700 hover:!border-blue-700 hover:!text-white"
     );
     const button =
       type === "button" ? (

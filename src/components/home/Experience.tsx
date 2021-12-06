@@ -4,6 +4,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import SectionHeader from "../SectionHeader";
 import ExperienceTabList from "./ExperienceTabList";
 import { DetailStructuredText } from "../text";
+import { SimpleButton } from "../elements";
 
 const Experience: FC = () => {
   const data = useStaticQuery(graphql`
@@ -27,6 +28,10 @@ const Experience: FC = () => {
             value
           }
           jobTitle
+        }
+        resumeButtonText
+        resumeMessage {
+          value
         }
       }
     }
@@ -85,6 +90,12 @@ const Experience: FC = () => {
             />
           </div>
         </div>
+      </div>
+      <div className="flex flex-col items-center text-center mt-10 mx-auto max-w-lg">
+        <DetailStructuredText data={data.datoCmsExperience.resumeMessage} />
+        <SimpleButton to="Resume.pdf" type="external-link" target="_blank">
+          {data.datoCmsExperience.resumeButtonText}
+        </SimpleButton>
       </div>
     </div>
   );
