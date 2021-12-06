@@ -11,7 +11,7 @@ const Footer: FC = () => {
     { icon: "fa:codepen", url: "#" },
   ];
   return (
-    <div className="flex flex-col justify-center items-center py-16">
+    <div className="flex flex-col justify-center items-center py-16 px-5 md:px-10">
       <div className="flex items-center justify-evenly mb-5">
         {socials.map(({ url, icon }, index) => (
           <a
@@ -24,9 +24,9 @@ const Footer: FC = () => {
           </a>
         ))}
       </div>
-      <h4 className="text-almost-black dark:text-gray-400 text-xs font-thin font-ibm-plex-mono">
+      <h4 className="text-almost-black text-center dark:text-gray-400 text-xs font-thin font-ibm-plex-mono">
         Inspired by <a href="https://brittanychiang.com/">Brittany Chiang</a>{" "}
-        built by Leithon English
+        built by Me
       </h4>
     </div>
   );
