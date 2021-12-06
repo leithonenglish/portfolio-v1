@@ -1,3 +1,4 @@
 import SimpleButton from "./SimpleButton";
+import MenuToggler from "./MenuToggler";
 
-export { SimpleButton };
+export { SimpleButton, MenuToggler };

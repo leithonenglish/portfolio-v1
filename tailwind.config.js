@@ -14,9 +14,9 @@ module.exports = {
         section: "3fr 2fr",
       },
       transitionProperty: {
-        position: "left, right, top, bottom, margin",
+        position: "left, right, top, bottom, margin, padding",
         "position-colors":
-          "left, right, top, bottom, background-color, border-color, color, fill, stroke",
+          "left, right, top, bottom, margin, padding, background-color, border-color, color, fill, stroke",
         "transform-colors":
           "transform, background-color, border-color, color, fill, stroke",
       },

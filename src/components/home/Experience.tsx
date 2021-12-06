@@ -31,7 +31,7 @@ const Experience: FC = () => {
       }
     }
   `);
-  const jobs = data.datoCmsExperience.jobs.map((job) => {
+  const jobs = data.datoCmsExperience.jobs.map((job: any) => {
     const {
       id,
       companyFullName,

@@ -1,0 +1,40 @@
+.menu-toggler {
+  display: flex;
+  flex-direction: column;
+  width: 30px;
+
+  span {
+    @apply bg-blue-700 dark:bg-blue-500;
+    height: 3px;
+    margin: 3px 0;
+    transition: 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+
+    &:nth-child(1) {
+      width: 50%;
+    }
+    &:nth-child(2) {
+      width: 100%;
+    }
+    &:nth-child(3) {
+      width: 75%;
+    }
+  }
+
+  &.open {
+    span {
+      &:nth-child(1) {
+        transform-origin: bottom;
+        transform: rotatez(45deg) translate(4px, 0px);
+      }
+      &:nth-child(2) {
+        transform-origin: top;
+        transform: rotatez(-45deg);
+      }
+      &:nth-child(3) {
+        transform-origin: bottom;
+        width: 50%;
+        transform: translate(14px, -4px) rotatez(45deg);
+      }
+    }
+  }
+}

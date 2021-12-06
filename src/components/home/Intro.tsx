@@ -52,10 +52,10 @@ const Intro: FC = () => {
       <h4 className="text-blue-700 dark:text-blue-400 font-ibm-plex-mono mb-4">
         {data.datoCmsIntroduction.firstLine}
       </h4>
-      <h1 className="dark:text-gray-200 text-6xl font-semibold mb-4 transition-colors">
+      <h1 className="dark:text-gray-200 text-4xl sm:text-6xl font-semibold mb-4 transition-colors">
         {data.datoCmsIntroduction.secondLine}
       </h1>
-      <p className="text-gray-600 dark:text-blue-100 text-6xl font-semibold mb-4 transition-colors">
+      <p className="text-gray-600 dark:text-blue-100 text-4xl sm:text-6xl font-semibold mb-4 transition-colors">
         I love making cool stuff with
         {codeText && (
           <AnimatePresence exitBeforeEnter>
