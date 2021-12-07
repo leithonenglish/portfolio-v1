@@ -9,13 +9,13 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply bg-gray-100;
+    @apply bg-gray-100 transition-colors duration-500;
     height: 100%;
     font-family: "Outfit", sans-serif;
     scroll-behavior: smooth;
   }
   body.dark {
-    @apply bg-almost-black transition-colors;
+    @apply bg-almost-black;
   }
   #___gatsby,
   #gatsby-focus-wrapper {

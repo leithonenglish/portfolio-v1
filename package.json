@@ -35,7 +35,9 @@
     "sass": "^1.44.0"
   },
   "devDependencies": {
-    "@iconify/icons-iconoir": "^1.1.2",
+    "@iconify/icons-akar-icons": "^1.1.29",
+    "@iconify/icons-ci": "^1.1.0",
+    "@iconify/icons-line-md": "^1.1.0",
     "@iconify/react": "^3.1.0",
     "autoprefixer": "^10.4.0",
     "gatsby-plugin-postcss": "^5.3.0",

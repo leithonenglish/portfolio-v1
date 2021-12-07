@@ -1,24 +1,13 @@
 import React, { useState, useContext, useMemo, useEffect, useRef } from "react";
 import { Link } from "gatsby";
 import { motion, AnimatePresence } from "framer-motion";
-import { Icon } from "@iconify/react";
-import lightBulbOn from "@iconify/icons-iconoir/light-bulb-on";
-import lightBulbOff from "@iconify/icons-iconoir/light-bulb-off";
-import lightBulb from "@iconify/icons-iconoir/light-bulb";
 import classNames from "classnames";
 import { MenuToggler } from "../components/elements";
-import { ThemeContext } from "../provider/ThemeProvider";
 import { logo as Logo } from "../assets/svg";
-
-const modeSettings: { [key: string]: any } = {
-  dark: { icon: lightBulbOff, color: "text-white/80" },
-  light: { icon: lightBulbOn, color: "text-yellow-500" },
-  system: { icon: lightBulb, color: "text-blue-500" },
-};
+import ThemeSwitcher from "./ThemeChanger";
 
 const HeaderBar = () => {
   const headerElm = useRef<HTMLDivElement>(null);
-  const { theme, isSystem, setTheme } = useContext(ThemeContext);
   const [links] = useState([
     { title: "About", url: "/#aboutme" },
     { title: "Experience", url: "/#experience" },
@@ -39,15 +28,7 @@ const HeaderBar = () => {
     _setMenuOpened(opened);
   };
   const showShadow = useMemo(() => scrollPosRef.current > 80, [scrollPos]);
-  const modeSetting = useMemo(
-    () => (isSystem ? modeSettings["system"] : modeSettings[theme]),
-    [isSystem, theme]
-  );
-  const onModeChange = (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    const mode = isSystem ? "light" : theme === "light" ? "dark" : "system";
-    setTheme(mode);
-  };
+
   const onMenuToggled = (opened: boolean) => {
     if (!opened) {
       setMenuInnerOpened(false);
@@ -96,7 +77,7 @@ const HeaderBar = () => {
     <div
       ref={headerElm}
       className={classNames(
-        "z-50 fixed top-0 left-0 right-0 flex items-center justify-between h-20 px-5 sm:px-10 bg-gray-100/80 dark:bg-almost-black/80 backdrop-filter backdrop-blur-md transition-position-colors",
+        "z-50 fixed top-0 left-0 right-0 flex items-center justify-between h-20 px-5 sm:px-10 bg-gray-100/80 dark:bg-almost-black/80 backdrop-filter backdrop-blur-md transition-position-colors duration-500",
         { "shadow-lg": showShadow }
       )}
     >
@@ -113,21 +94,12 @@ const HeaderBar = () => {
           <Link
             key={`${title}-${url}`}
             to={url}
-            className="text-almost-black dark:text-gray-200 text-sm font-extralight px-5 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+            className="text-almost-black dark:text-gray-200 font-extralight px-5 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
           >
             {title}
           </Link>
         ))}
-        <button
-          key={theme}
-          className={classNames(
-            "text-2xl transform transition-transform-colors hover:scale-125 active:scale-90",
-            modeSetting.color
-          )}
-          onClick={onModeChange}
-        >
-          <Icon icon={modeSetting.icon} />
-        </button>
+        <ThemeSwitcher className="ml-10" />
       </div>
       <AnimatePresence>
         {menuOpened && (
@@ -141,7 +113,7 @@ const HeaderBar = () => {
             <AnimatePresence>
               {menuInnerOpened && (
                 <motion.aside
-                  className="absolute top-0 right-0 h-screen w-[80%] bg-gray-300 dark:bg-almost-black transform"
+                  className="absolute top-0 right-0 h-screen w-[80%] bg-gray-200 dark:bg-almost-black transform"
                   initial={{ opacity: 0, x: "1000px" }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: "1000px" }}
@@ -161,16 +133,7 @@ const HeaderBar = () => {
                         </Link>
                       ))}
                     </nav>
-                    <button
-                      key={theme}
-                      className={classNames(
-                        "text-4xl transform transition-transform-colors mt-10 hover:scale-125 active:scale-90",
-                        modeSetting.color
-                      )}
-                      onClick={onModeChange}
-                    >
-                      <Icon icon={modeSetting.icon} />
-                    </button>
+                    <ThemeSwitcher className="mt-10" />
                   </div>
                 </motion.aside>
               )}
