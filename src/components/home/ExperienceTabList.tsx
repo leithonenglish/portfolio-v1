@@ -43,6 +43,10 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
     index: number
   ) => {
     event.preventDefault();
+    if (!isWide) {
+      const leftPos = event.currentTarget.offsetLeft;
+      event.currentTarget.parentElement.scrollLeft = leftPos;
+    }
     setJobIndex(index);
   };
   const achievementVariants = {
@@ -74,7 +78,7 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
       });
     } else {
       setTabMarkerStyle({
-        bottom: "-2px",
+        bottom: 0,
         height: "2px",
         left: `${tab.offsetLeft}px`,
         width: `${tab.clientWidth}px`,
@@ -92,12 +96,15 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="relative flex-shrink-0 flex flex-row border-b-2 overflow-x-scroll overflow-y-visible mb-5 md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500 md:mb-0 md:overflow-visible md:flex-col">
+      <div className="flex-shrink-0 flex flex-row h-12 mb-5 md:mb-0 md:flex-col">
         <div
-          className="absolute z-10 bg-blue-700 dark:bg-[#64c6ff] transition-position-dimension duration-300"
-          style={tabMarkerStyle}
-        ></div>
-        <div className="flex flex-row min-w-full md:min-w-0 md:flex-col">
+          className="relative flex flex-row min-w-full border-b-2 border-gray-300 dark:border-gray-500 overflow-x-scroll overflow-y-visible md:overflow-visible md:border-b-0 md:border-l-2 md:min-w-0 md:flex-col"
+          style={{ scrollBehavior: "smooth" }}
+        >
+          <div
+            className="absolute z-10 bg-blue-700 dark:bg-[#64c6ff] transition-position-dimension duration-300"
+            style={tabMarkerStyle}
+          ></div>
           {jobs.map(({ id, company }, index) => (
             <button
               key={id}
