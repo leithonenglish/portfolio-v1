@@ -8,7 +8,6 @@ const Footer: FC = () => {
       icon: "eva:linkedin-outline",
       url: "https://www.linkedin.com/in/leithon-english-97ab8a35",
     },
-    { icon: "fa:codepen", url: "#" },
   ];
   return (
     <div className="flex flex-col justify-center items-center py-16 px-5 md:px-10">
