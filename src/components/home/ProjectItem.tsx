@@ -62,7 +62,9 @@ const ProjectItem: FC<ProjectItemProps> = ({
                   </p>
                 );
               default:
-                return React.createElement(`${tag}`, null, pieces);
+                return !!tag && !!pieces
+                  ? React.createElement(`${tag}`, null, pieces)
+                  : null;
             }
           }}
         />
