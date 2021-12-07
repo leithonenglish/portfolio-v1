@@ -1,5 +1,11 @@
 import * as React from "react";
-import { AboutMe, Contact, Experience, Intro } from "../components/home";
+import {
+  AboutMe,
+  Contact,
+  Experience,
+  Intro,
+  Projects,
+} from "../components/home";
 
 const IndexPage = () => {
   return (
@@ -7,6 +13,7 @@ const IndexPage = () => {
       <Intro />
       <AboutMe />
       <Experience />
+      <Projects />
       <Contact />
     </div>
   );

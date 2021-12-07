@@ -3,11 +3,12 @@ import React, { FC } from "react";
 
 type SectionHeaderProps = {
   hideDivider?: boolean;
+  size?: "regular" | "medium" | "large";
 };
 
 const SectionHeader: FC<
   SectionHeaderProps & React.HtmlHTMLAttributes<Element>
-> = ({ hideDivider = false, children, className }) => {
+> = ({ hideDivider = false, size = "regular", children, className }) => {
   return (
     <div
       className={classNames(
@@ -15,7 +16,16 @@ const SectionHeader: FC<
         "flex items-center w-full mb-10 max-w-xl"
       )}
     >
-      <h1 className="flex-shrink-0 text-almost-black dark:text-gray-200 text-3xl font-semibold">
+      <h1
+        className={classNames(
+          "flex-shrink-0 text-almost-black dark:text-gray-200 font-semibold",
+          size === "regular"
+            ? "text-3xl"
+            : size === "medium"
+            ? "text-5xl"
+            : "text-7xl"
+        )}
+      >
         {children}
       </h1>
       {!hideDivider && (

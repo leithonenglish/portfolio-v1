@@ -11,7 +11,7 @@ const HeaderBar = () => {
   const [links] = useState([
     { title: "About", url: "/#aboutme" },
     { title: "Experience", url: "/#experience" },
-    { title: "My Work", url: "/#mywork" },
+    { title: "Projects", url: "/#projects" },
     { title: "Contact", url: "/#contact" },
   ]);
   const [scrollPos, _setScrollPos] = useState(0);
@@ -113,7 +113,7 @@ const HeaderBar = () => {
             <AnimatePresence>
               {menuInnerOpened && (
                 <motion.aside
-                  className="absolute top-0 right-0 h-screen w-[80%] bg-gray-200 dark:bg-almost-black transform"
+                  className="absolute top-0 right-0 h-screen w-[80%] bg-gray-200 dark:bg-almost-black transform transition-colors duration-500"
                   initial={{ opacity: 0, x: "1000px" }}
                   animate={{ opacity: 1, x: 0 }}
                   exit={{ opacity: 0, x: "1000px" }}
