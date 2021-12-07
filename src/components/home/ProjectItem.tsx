@@ -1,5 +1,5 @@
 import { Icon } from "@iconify/react";
-import React, { FC } from "react";
+import React, { FC, HtmlHTMLAttributes, ReactHTMLElement } from "react";
 import { StructuredText } from "react-datocms";
 
 type ProjectItemProps = {
@@ -55,23 +55,40 @@ const ProjectItem: FC<ProjectItemProps> = ({
               case "p":
                 return (
                   <p
-                    key={meta.key}
+                    key={tag.key + meta.key}
                     className="text-almost-black dark:text-gray-300 font-light"
                   >
                     {pieces}
                   </p>
                 );
+              case "a":
+                return (
+                  <a
+                    key={tag + meta.key}
+                    href={meta.href}
+                    target="_blank"
+                    className="relative inline-block group text-blue-900 dark:text-blue-500"
+                  >
+                    <span className="absolute left-0 bottom-[-2px] bg-blue-500 h-[2px] w-0 transition-dimension group-hover:w-full"></span>
+                    {pieces}
+                  </a>
+                );
               default:
-                return !!tag && !!pieces
-                  ? React.createElement(`${tag}`, null, pieces)
-                  : "";
+                return React.createElement(
+                  `${tag}`,
+                  { key: tag + meta.key },
+                  pieces
+                );
             }
           }}
         />
       </div>
       <div className="flex flex-wrap items-center mt-10">
         {technologies.map((technology) => (
-          <span className="flex-shrink-0 mr-4 text-xs text-almost-black dark:text-gray-300 font-ibm-plex-mono">
+          <span
+            key={technology}
+            className="flex-shrink-0 mr-4 text-xs text-almost-black dark:text-gray-300 font-ibm-plex-mono"
+          >
             {technology}
           </span>
         ))}
