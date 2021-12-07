@@ -1,5 +1,12 @@
 import classNames from "classnames";
-import React, { FC, MouseEvent, useEffect, useMemo, useState } from "react";
+import React, {
+  FC,
+  Fragment,
+  MouseEvent,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { StructuredText } from "react-datocms";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -9,11 +16,11 @@ type ExperienceTabListProps = {
   jobs: {
     id: string;
     title: string;
-    startDate: string;
-    endDate: string;
+    startDate?: string;
+    endDate?: string;
     company: {
       name: string;
-      website: string;
+      website?: string;
     };
     achievements: any;
   }[];
@@ -119,18 +126,27 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
           <div className="text-xl font-medium">
             <span className="text-almost-black dark:text-gray-200">
               {selectectJob.title}
-            </span>{" "}
-            <span className="text-gray-400 font-light">@</span>{" "}
-            <a
-              href={selectectJob.company.website}
-              target="_blank"
-              className="text-blue-700 dark:text-blue-400"
-            >
-              {selectectJob.company.name}
-            </a>
+            </span>
+            {!!selectectJob.company.website && (
+              <Fragment>
+                {" "}
+                <span className="text-gray-400 font-light">@</span>{" "}
+                <a
+                  href={selectectJob.company.website}
+                  target="_blank"
+                  className="text-blue-700 dark:text-blue-400"
+                >
+                  {selectectJob.company.name}
+                </a>
+              </Fragment>
+            )}
           </div>
           <h3 className="text-almost-black dark:text-gray-400 font-ibm-plex-mono text-xs mt-1">
-            {selectectJob.startDate} - {selectectJob.endDate || "Present"}
+            {!!selectectJob.startDate
+              ? `${selectectJob.startDate} - ${
+                  selectectJob.endDate || "Present"
+                }`
+              : "Ongoing"}
           </h3>
           <StructuredText
             data={selectectJob.achievements}

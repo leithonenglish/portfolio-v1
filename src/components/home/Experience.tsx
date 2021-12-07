@@ -21,7 +21,6 @@ const Experience: FC = () => {
           id
           companyName
           companyWebsite
-          current
           endDate(formatString: "MMMM YYYY")
           startDate(formatString: "MMMM YYYY")
           workDetails {
