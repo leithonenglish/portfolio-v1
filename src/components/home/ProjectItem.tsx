@@ -87,7 +87,7 @@ const ProjectItem: FC<ProjectItemProps> = ({
         {technologies.map((technology) => (
           <span
             key={technology}
-            className="flex-shrink-0 mr-4 text-xs text-almost-black dark:text-gray-300 font-ibm-plex-mono"
+            className="flex-shrink-0 mr-4 text-xs text-almost-black dark:text-gray-300 leading-5 font-ibm-plex-mono last:mr-0"
           >
             {technology}
           </span>

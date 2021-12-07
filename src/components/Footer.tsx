@@ -24,8 +24,15 @@ const Footer: FC = () => {
         ))}
       </div>
       <h4 className="text-almost-black text-center dark:text-gray-400 text-xs font-thin font-ibm-plex-mono">
-        Inspired by <a href="https://brittanychiang.com/">Brittany Chiang</a>{" "}
-        built by Me
+        Inspired by{" "}
+        <a
+          href="https://brittanychiang.com/"
+          className="relative text-blue-700 dark:text-blue-500 inline-block group"
+        >
+          <span className="absolute left-0 bottom-[-2px] bg-blue-500 h-[2px] w-0 transition-dimension group-hover:w-full"></span>
+          Brittany Chiang
+        </a>{" "}
+        built by <b className="font-bold text-blue-200">Me</b>
       </h4>
     </div>
   );
