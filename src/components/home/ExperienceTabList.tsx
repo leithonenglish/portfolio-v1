@@ -3,6 +3,7 @@ import React, { FC, MouseEvent, useEffect, useMemo, useState } from "react";
 import { StructuredText } from "react-datocms";
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useMediaQuery } from "../../hooks";
 
 type ExperienceTabListProps = {
   jobs: {
@@ -18,11 +19,18 @@ type ExperienceTabListProps = {
   }[];
 };
 
+type TabMarkerStyle = {
+  top?: string | number;
+  bottom?: string | number;
+  left: string | number;
+  height: string | number;
+  width: string | number;
+};
+
 const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
+  const isWide = useMediaQuery("(min-width: 768px)");
   const [jobIndex, setJobIndex] = useState<number>(0);
-  const [verticalTabMarkerPos, setVerticalTabMarkerPos] = useState<number>(0);
-  const [verticalTabMarkerHeight, setVerticalTabMarkerHeight] =
-    useState<number>(40);
+  const [tabMarkerStyle, setTabMarkerStyle] = useState<TabMarkerStyle>();
   const onCompanyClick = (
     event: MouseEvent<HTMLButtonElement>,
     index: number
@@ -47,24 +55,41 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
   };
   const selectectJob = useMemo(() => jobs[jobIndex], [jobIndex]);
   const isJobSelected = (index: number) => jobIndex === index;
-
-  useEffect(() => {
+  const updateTabIndicator = () => {
     const tabs = document.getElementsByClassName("btn-tab");
     const tab = tabs.item(jobIndex) as HTMLButtonElement;
-    setVerticalTabMarkerPos(tab.offsetTop);
-    setVerticalTabMarkerHeight(tab.clientHeight);
+    if (isWide) {
+      setTabMarkerStyle({
+        left: "-2px",
+        width: "2px",
+        top: `${tab.offsetTop}px`,
+        height: `${tab.clientHeight}px`,
+      });
+    } else {
+      setTabMarkerStyle({
+        bottom: "-2px",
+        height: "2px",
+        left: `${tab.offsetLeft}px`,
+        width: `${tab.clientWidth}px`,
+      });
+    }
+  };
+
+  useEffect(() => {
+    updateTabIndicator();
+  }, [isWide]);
+
+  useEffect(() => {
+    updateTabIndicator();
   }, [jobIndex]);
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="flex-shrink-0 flex flex-row md:flex-col">
-        <div className="relative flex flex-row border-b-2 min-w-full mb-5 overflow-x-scroll md:overflow-auto md:mb-0 md:min-w-0 md:flex-col md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500">
+      <div className="flex-shrink-0 flex flex-row overflow-x-scroll overflow-y-visible md:overflow-visible md:flex-col">
+        <div className="relative flex flex-row border-b-2 min-w-full mb-5 md:mb-0 md:min-w-0 md:flex-col md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500">
           <div
-            className="absolute w-[2px] left-[-2px] bg-blue-700 dark:bg-[#64c6ff] transition-position duration-300 hidden md:block"
-            style={{
-              top: `${verticalTabMarkerPos}px`,
-              height: `${verticalTabMarkerHeight}px`,
-            }}
+            className="absolute z-10 bg-blue-700 dark:bg-[#64c6ff] transition-position-dimension duration-300"
+            style={tabMarkerStyle}
           ></div>
           {jobs.map(({ id, company }, index) => (
             <button

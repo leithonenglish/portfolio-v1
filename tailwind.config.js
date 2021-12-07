@@ -15,6 +15,8 @@ module.exports = {
       },
       transitionProperty: {
         position: "left, right, top, bottom, margin, padding",
+        "postion-dimension":
+          "left, right, top, bottom, margin, padding, width, height",
         "position-colors":
           "left, right, top, bottom, margin, padding, background-color, border-color, color, fill, stroke",
         "transform-colors":
