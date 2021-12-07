@@ -92,12 +92,12 @@ const ExperienceTabList: FC<ExperienceTabListProps> = ({ jobs }) => {
 
   return (
     <div className="flex flex-col md:flex-row">
-      <div className="flex-shrink-0 flex flex-row overflow-x-scroll overflow-y-visible mb-5 md:mb-0 md:overflow-visible md:flex-col">
-        <div className="relative flex flex-row border-b-2 min-w-full md:min-w-0 md:flex-col md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500">
-          <div
-            className="absolute z-10 bg-blue-700 dark:bg-[#64c6ff] transition-position-dimension duration-300"
-            style={tabMarkerStyle}
-          ></div>
+      <div className="relative flex-shrink-0 flex flex-row border-b-2 overflow-x-scroll overflow-y-visible mb-5 md:border-b-0 md:border-l-2 border-gray-300 dark:border-gray-500 md:mb-0 md:overflow-visible md:flex-col">
+        <div
+          className="absolute z-10 bg-blue-700 dark:bg-[#64c6ff] transition-position-dimension duration-300"
+          style={tabMarkerStyle}
+        ></div>
+        <div className="flex flex-row min-w-full md:min-w-0 md:flex-col">
           {jobs.map(({ id, company }, index) => (
             <button
               key={id}
