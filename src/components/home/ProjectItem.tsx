@@ -39,7 +39,7 @@ const ProjectItem: FC<ProjectItemProps> = ({
               target="_blank"
               className="text-gray-600 dark:text-gray-300 text-2xl ml-2 transition-colors hover:text-blue-700 dark:hover:text-blue-500"
             >
-              <Icon icon="eva:external-link-outline" />
+              <Icon icon="akar-icons:globe" />
             </a>
           )}
         </div>
