@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, MouseEvent } from "react";
 import { Link } from "gatsby";
 import { motion, AnimatePresence } from "framer-motion";
 import classNames from "classnames";
@@ -40,6 +40,16 @@ const HeaderBar = () => {
     if (definition.opacity === 0) {
       setMenuOpened(false);
     }
+  };
+  const onMenuAnimated = (definition: any) => {
+    console.log(definition);
+    const isOpened = definition.opacity !== 0;
+    setMenuInnerOpened(isOpened);
+  };
+  const onMenuOverlayClicked = (event: MouseEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setMenuInnerOpened(false);
   };
   useEffect(() => {
     setScrollPos(window.scrollX);
@@ -104,41 +114,43 @@ const HeaderBar = () => {
       <AnimatePresence>
         {menuOpened && (
           <motion.div
-            className="fixed z-40 top-0 right-0 left-0 h-screen bg-white/5 backdrop-filter backdrop-blur-3xl overscroll-contain"
+            className="fixed z-30 top-0 right-0 left-0 h-screen bg-white/5 backdrop-filter backdrop-blur-3xl overscroll-contain"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onAnimationComplete={() => setMenuInnerOpened(true)}
+            onAnimationComplete={onMenuAnimated}
+            onClick={onMenuOverlayClicked}
+          ></motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {menuInnerOpened && (
+          <motion.aside
+            className="fixed z-40 top-0 right-0 h-screen w-[80%] bg-gray-200 dark:bg-almost-black transform transition-colors duration-500"
+            initial={{ opacity: 0, x: "1000px" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "1000px" }}
+            transition={{ duration: 0.3 }}
+            onAnimationComplete={onMenuInnerAnimated}
           >
-            <AnimatePresence>
-              {menuInnerOpened && (
-                <motion.aside
-                  className="absolute top-0 right-0 h-screen w-[80%] bg-gray-200 dark:bg-almost-black transform transition-colors duration-500"
-                  initial={{ opacity: 0, x: "1000px" }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, x: "1000px" }}
-                  transition={{ duration: 0.3 }}
-                  onAnimationComplete={onMenuInnerAnimated}
-                >
-                  <div className="flex flex-col items-center justify-center w-full h-full py-10">
-                    <nav className="flex flex-col items-center justify-center">
-                      {links.map(({ title, url }) => (
-                        <Link
-                          key={`${title}-${url}`}
-                          to={url}
-                          className="text-almost-black dark:text-gray-200 text-xl font-extralight my-5 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
-                          onClick={() => setMenuInnerOpened(false)}
-                        >
-                          {title}
-                        </Link>
-                      ))}
-                    </nav>
-                    <ThemeSwitcher className="mt-10" />
-                  </div>
-                </motion.aside>
-              )}
-            </AnimatePresence>
-          </motion.div>
+            <div className="flex flex-col items-center justify-center w-full h-full py-10">
+              <nav className="flex flex-col items-center justify-center">
+                {links.map(({ title, url }) => (
+                  <Link
+                    key={`${title}-${url}`}
+                    to={url}
+                    className="text-almost-black dark:text-gray-200 text-xl font-extralight my-5 transition-colors hover:text-blue-700 dark:hover:text-blue-400"
+                    onClick={() => {
+                      setMenuInnerOpened(false);
+                    }}
+                  >
+                    {title}
+                  </Link>
+                ))}
+              </nav>
+              <ThemeSwitcher className="mt-10" />
+            </div>
+          </motion.aside>
         )}
       </AnimatePresence>
     </div>

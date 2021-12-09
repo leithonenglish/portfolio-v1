@@ -32,7 +32,8 @@ const Footer: FC = () => {
           <span className="absolute left-0 bottom-[-2px] bg-blue-500 h-[2px] w-0 transition-dimension group-hover:w-full"></span>
           Brittany Chiang
         </a>{" "}
-        built by <b className="font-bold text-blue-200">Me</b>
+        built by{" "}
+        <b className="font-bold text-blue-700 dark:text-blue-200">Me</b>
       </h4>
     </div>
   );
