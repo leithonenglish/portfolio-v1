@@ -1,5 +1,5 @@
+import React, { FC } from "react";
 import { Icon } from "@iconify/react";
-import React, { FC, HtmlHTMLAttributes, ReactHTMLElement } from "react";
 import { StructuredText } from "react-datocms";
 
 type ProjectItemProps = {
