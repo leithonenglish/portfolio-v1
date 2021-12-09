@@ -42,7 +42,6 @@ const HeaderBar = () => {
     }
   };
   const onMenuAnimated = (definition: any) => {
-    console.log(definition);
     const isOpened = definition.opacity !== 0;
     setMenuInnerOpened(isOpened);
   };
